@@ -1,0 +1,19 @@
+{
+  "name": "zoominfo-assessment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nivas22/zoominfo-assessment.git"
+  },
+  "author": "Seenivasan Sankaran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nivas22/zoominfo-assessment/issues"
+  },
+  "homepage": "https://github.com/nivas22/zoominfo-assessment#readme"
+}
