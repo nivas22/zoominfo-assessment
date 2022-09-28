@@ -106,6 +106,12 @@
 							"key": "is_file",
 							"value": "true",
 							"type": "text"
+						},
+						{
+							"key": "parentId",
+							"value": "55",
+							"type": "text",
+							"disabled": true
 						}
 					]
 				},
@@ -141,13 +147,19 @@
 					"formdata": [
 						{
 							"key": "name",
-							"value": "Folder 2",
+							"value": "Folder 1",
 							"type": "text"
 						},
 						{
 							"key": "is_file",
 							"value": "false",
 							"type": "text"
+						},
+						{
+							"key": "parentId",
+							"value": "55",
+							"type": "text",
+							"disabled": true
 						}
 					]
 				},
@@ -205,7 +217,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/api/file/move?parentId=30&fileId=32",
+					"raw": "http://localhost:3000/api/file/move?parentId=55&fileId=57&name=file2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -219,11 +231,15 @@
 					"query": [
 						{
 							"key": "parentId",
-							"value": "30"
+							"value": "55"
 						},
 						{
 							"key": "fileId",
-							"value": "32"
+							"value": "57"
+						},
+						{
+							"key": "name",
+							"value": "file2"
 						}
 					]
 				}
