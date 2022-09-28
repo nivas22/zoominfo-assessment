@@ -40,7 +40,6 @@ exports.getFiles = async (call, callback) => {
 exports.moveFile = async (call, callback) => {
   const { userId, parentId = 0, fileId, name } = call.request;
   const file = await getFileOrFolder(name, parentId, userId); 
-  console.log(file);
   if(file && file.length > 0) {
     callback({
       code: 400,
