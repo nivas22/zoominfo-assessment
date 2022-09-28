@@ -3,12 +3,22 @@ const bcrypt = require('bcrypt');
 const { addUser, getUser } = require('../repository/user.repository');
 const { generateToken, verify } = require('../services/auth.service');
 
-exports.registerUser = (call, callback) => {
+exports.registerUser = async (call, callback) => {
   const { name, email, password } = call.request;
   if (!name && !email && !password) {
     callback({
       code: 400,
       message: 'Required fields are missing',
+      status: grpc.status.INVALID_ARGUMENT
+    })
+  }
+  
+  const user = await getUser(email);
+  
+  if(user) {
+    callback({
+      code: 400,
+      message: 'User is already exist.',
       status: grpc.status.INVALID_ARGUMENT
     })
   }
