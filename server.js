@@ -32,6 +32,9 @@ const server = new grpc.Server();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api', routes);
+app.get('/healthcheck', (req, res) => {
+  res.status(200).send('ok');
+});
 
 // Add the service
 server.addService(userProto.UserService.service, userService);
