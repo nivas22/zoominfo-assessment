@@ -4,28 +4,28 @@ services:
   mysqldb:
     image: mysql:5.7
     restart: unless-stopped
-    env_file: ./.env
+    env_file: .env
     environment:
-      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
-      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+      - MYSQL_ROOT_PASSWORD=$DB_PASSWORD
+      - MYSQL_DATABASE=$DB_NAME
     ports:
-      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+      - $MYSQLDB_LOCAL_PORT:3307
     volumes:
       - db:/var/lib/mysql
   app:
     depends_on:
       - mysqldb
-    build: ./zoominfo-assessment
+    build: .
     restart: unless-stopped
-    env_file: ./.env
+    env_file: .env
     ports:
-      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+      - $NODE_LOCAL_PORT:3000
     environment:
       - DB_HOST=mysqldb
-      - DB_USER=$MYSQLDB_USER
-      - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
-      - DB_NAME=$MYSQLDB_DATABASE
-      - DB_PORT=$MYSQLDB_DOCKER_PORT
+      - DB_USER=$DB_USER
+      - DB_PASSWORD=$DB_PASSWORD
+      - DB_NAME=$DB_NAME
+      - DB_PORT=3307
     stdin_open: true
     tty: true
 
