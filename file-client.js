@@ -13,11 +13,11 @@ const options = {
 };
 
 let packageDefinition =  protoLoader.loadSync([
-  PROTO_PATH + "/users.proto"
+  PROTO_PATH + "/files.proto"
 ], options);
 
-const userProto = grpc.loadPackageDefinition(packageDefinition).user;
-const client = new userProto.UserService(
+const fileProto = grpc.loadPackageDefinition(packageDefinition).files;
+const client = new fileProto.FileService(
 	"localhost:50052",
 	grpc.credentials.createInsecure()
 );

@@ -1,0 +1,51 @@
+syntax = 'proto3';
+
+package files;
+
+service FileService {
+  rpc createFileAndFolder(FileData) returns (FileId) {}
+  rpc getFiles(FileRequest) returns (FileList) {}
+  rpc moveFile(MoveFileRequest) returns (FileId) {}
+}
+
+message File {
+  int32 id = 1;
+  string name = 2;
+  string is_file = 3;
+  int32 parent_id = 4;
+  int32 userId = 5;
+}
+
+message FileData {
+  string tempPath = 1;
+  string name = 2;
+  int32 size = 3;
+  string is_file = 4;
+  int32 userId = 5;
+}
+
+message FileRequest {
+  string parentId = 1;
+  string userId = 2;
+}
+
+message MoveFileRequest {
+  int32 parentId = 1;
+  int32 userId = 2;
+  int32 fileId = 3; 
+}
+
+message FileId {
+  string id = 1;
+}
+
+message FileList {
+  repeated File files = 1;
+}
+
+message FileUploadResponse {
+  int32 name = 1;
+  string status = 2;
+}
+
+message Empty {}

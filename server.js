@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const userService = require('./services/user.service');
+const fileService = require('./services/file.service');
 const routes = require('./routes/index.route');
 
 const options = {
@@ -17,10 +18,12 @@ const options = {
 const PROTO_PATH = __dirname + '/proto/';
 
 let packageDefinition =  protoLoader.loadSync([
-  PROTO_PATH + "/users.proto"
+  PROTO_PATH + "/users.proto",
+  PROTO_PATH + "/files.proto",
 ], options);
 
 let userProto = grpc.loadPackageDefinition(packageDefinition).user;
+const fileProto = grpc.loadPackageDefinition(packageDefinition).files;
 
 // Create a server
 const app = express();
@@ -32,8 +35,9 @@ app.use('/api', routes);
 
 // Add the service
 server.addService(userProto.UserService.service, userService);
+server.addService(fileProto.FileService.service, fileService);
 
-server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(),
+server.bindAsync('0.0.0.0:50052', grpc.ServerCredentials.createInsecure(),
 (err, port)=>{
     if (err != null) {
         return console.error(err);
