@@ -4,7 +4,6 @@ const config = require('config');
 let pool;
 
 function createConnection() {
-  console.log('process env', process.env);
   let options = undefined
   if(process.env.DB_HOST) {
     options = {
@@ -18,7 +17,6 @@ function createConnection() {
     };
   }
   
-  console.log('options-------------', options);
   const mysqlOptions = options || config.mysql;
 
   mysqlOptions.typeCast = function (field, next) {
