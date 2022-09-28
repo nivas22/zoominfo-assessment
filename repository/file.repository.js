@@ -29,7 +29,7 @@ function getAllFiles(userId) {
     connection.query(`SELECT 
     CASE 
 		WHEN t1.parent_id IS NULL THEN 'Parent'
-        ELSE 'Child'
+      ELSE 'Child'
     END AS relationship,
     t1.id,
     t1.name,
@@ -46,15 +46,35 @@ function getAllFiles(userId) {
   });
 }
 
-
 function getParentFiles(parent_id, user_id) {
-  const parent = parent_id === '' ? 'AND parent_id is null' : `AND parent_id = ?`;
-  const query = `SELECT t1.id, t1.name, t1.is_file, t1.parent_id, t1.user_id FROM files_folders t1 WHERE user_id = ? ${parent};`;
-  console.log(query);
+  const query = `SELECT t1.id, t1.name, t1.is_file, t1.parent_id, t1.user_id FROM files_folders t1 WHERE user_id = ? AND t1.parent_id = ?;`;
   return new Promise((resolve, reject) => {
     const connection = createConnection();
-    connection.query(query, [user_id, parent], (err, rows) =>
+    connection.query(query, [user_id, parent_id], (err, rows) =>
       err ? reject(mysqlErrorHandler(err)) : resolve(mapFileRows(rows)),
+    );
+  });
+}
+
+function getFileOrFolder(fileName, parent_id, userId) {
+  // const parent = parent_id && parent_id === 0 ? 'AND t1.parent_id is null' : `AND t1.parent_id = ?`;
+  const query = `SELECT t1.id, t1.name, t1.is_file, t1.parent_id, t1.user_id FROM files_folders t1 WHERE t1.user_id = ? and t1.name = ? AND t1.parent_id = ?;`;
+
+  return new Promise((resolve, reject) => {
+    const connection = createConnection();
+    connection.query(query, [userId, fileName, parent_id], (err, rows) =>
+      err ? reject(mysqlErrorHandler(err)) : resolve(rows),
+    );
+  });
+}
+
+function getFile(id) {
+  const query = `SELECT t1.id, t1.name, t1.is_file, t1.parent_id, t1.user_id FROM files_folders t1 WHERE t1.id = ?;`;
+
+  return new Promise((resolve, reject) => {
+    const connection = createConnection();
+    connection.query(query, [id], (err, rows) =>
+      err ? reject(mysqlErrorHandler(err)) : resolve(rows),
     );
   });
 }
@@ -79,5 +99,7 @@ module.exports = {
   getAllFiles,
   getParentFiles,
   addFileContent,
-  moveFile
+  moveFile,
+  getFileOrFolder,
+  getFile
 };

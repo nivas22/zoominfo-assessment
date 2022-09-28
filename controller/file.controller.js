@@ -1,7 +1,7 @@
 const client = require("../file-client");
 
 exports.createFileFolder = async (req, res) => {
-  const { parentId = null, name, is_file } = req.body;
+  const { parentId = 0, name, is_file } = req.body;
   
   let requestData = {};
   if(is_file === 'true') {
@@ -17,10 +17,11 @@ exports.createFileFolder = async (req, res) => {
     requestData = {
       name, 
       is_file,
-      userId: req.userId
+      userId: req.userId,
+      parentId
     }
   }
-   
+  console.log('requestData----------', requestData);
   client.createFileAndFolder(requestData, (err, data) => {
 		if (!err) {
 			res.send({

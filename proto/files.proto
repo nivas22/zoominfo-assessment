@@ -22,6 +22,7 @@ message FileData {
   int32 size = 3;
   string is_file = 4;
   int32 userId = 5;
+  int32 parentId = 6;
 }
 
 message FileRequest {
