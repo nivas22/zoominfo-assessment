@@ -21,7 +21,7 @@ exports.createFileFolder = async (req, res) => {
       parentId
     }
   }
-  console.log('requestData----------', requestData);
+  
   client.createFileAndFolder(requestData, (err, data) => {
 		if (!err) {
 			res.send({

@@ -57,7 +57,6 @@ function getParentFiles(parent_id, user_id) {
 }
 
 function getFileOrFolder(fileName, parent_id, userId) {
-  // const parent = parent_id && parent_id === 0 ? 'AND t1.parent_id is null' : `AND t1.parent_id = ?`;
   const query = `SELECT t1.id, t1.name, t1.is_file, t1.parent_id, t1.user_id FROM files_folders t1 WHERE t1.user_id = ? and t1.name = ? AND t1.parent_id = ?;`;
 
   return new Promise((resolve, reject) => {
