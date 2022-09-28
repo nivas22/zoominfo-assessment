@@ -1,6 +1,7 @@
 {
   "appName": "Zoom info assessment",
   "port": 3000,
+  "grpcPort": 50052,
   "jwt_secret":"FrqUbKyXW94CwQ9n",
   "mysql": {
       "host": "localhost",

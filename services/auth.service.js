@@ -8,8 +8,10 @@ module.exports.generateToken = (payload) => {
 module.exports.verify = (token, callback) => {
     jwt.verify(token, config.jwt_secret, (err, user) => {
         if (err) {
-            console.error(err);
+            callback({
+                message: "Token is not valid",
+              });
         }
-        callback(user);
+        callback(user && user.payload);
     });
 }

@@ -33,7 +33,7 @@ app.use('/api', routes);
 // Add the service
 server.addService(userProto.UserService.service, userService);
 
-server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(),
+server.bindAsync(`0.0.0.0:${config.grpcPort}`, grpc.ServerCredentials.createInsecure(),
 (err, port)=>{
     if (err != null) {
         return console.error(err);

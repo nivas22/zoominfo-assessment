@@ -1,5 +1,6 @@
 
 const grpc = require('@grpc/grpc-js');
+const config = require('config');
 const protoLoader = require("@grpc/proto-loader");
 
 const PROTO_PATH = __dirname + '/proto/';
@@ -18,7 +19,7 @@ let packageDefinition =  protoLoader.loadSync([
 
 const userProto = grpc.loadPackageDefinition(packageDefinition).user;
 const client = new userProto.UserService(
-	"localhost:50051",
+	`localhost:${config.grpcPort}`,
 	grpc.credentials.createInsecure()
 );
 
