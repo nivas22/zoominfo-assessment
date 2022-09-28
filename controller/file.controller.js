@@ -25,7 +25,7 @@ exports.createFileFolder = async (req, res) => {
 		if (!err) {
 			res.send({
         status: 0,
-        message: 'Registration is success.',
+        message: 'File created successfully.',
         data
       });
 		} else {

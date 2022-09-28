@@ -9,7 +9,7 @@ exports.createFileAndFolder = async (call, callback) => {
       if (error) {
         process.exit(1);
       }
-      const response = await addFileAndFolder(userId, name, 0, parentId);
+      const response = await addFileAndFolder(userId, name, 1, parentId);
       await addFileContent(response.insertId, fileBuffer);
       response.id = response.insertId;
       callback(null, response);
