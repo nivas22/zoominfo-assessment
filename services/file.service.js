@@ -7,7 +7,6 @@ exports.createFileAndFolder = async (call, callback) => {
    if(tempPath) {
     readFile(tempPath, async (error, fileBuffer) => {
       if (error) {
-        console.error(error.message);
         process.exit(1);
       }
       const response = await addFileAndFolder(userId, name, 0, parentId);
@@ -25,7 +24,6 @@ exports.createFileAndFolder = async (call, callback) => {
 exports.getFiles = async (call, callback) => {
   const { userId, parentId = null } = call.request;
   const response = await getParentFiles(parentId, userId);
-  console.log(response);
   callback(null, { files: response} );
 }
 
