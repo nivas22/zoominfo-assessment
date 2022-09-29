@@ -19,9 +19,9 @@
 -- Table structure for table `file_content`
 --
 
-CREATE DATABASE filemanagement;
+CREATE DATABASE IF NOT EXISTS `filemanagement`;
 
-use filemanagement;
+USE `filemanagement`;
 
 DROP TABLE IF EXISTS `file_content`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -35,7 +35,7 @@ CREATE TABLE `file_content` (
   PRIMARY KEY (`id`),
   KEY `fk_file_id_idx` (`file_id`),
   CONSTRAINT `fk_file_id` FOREIGN KEY (`file_id`) REFERENCES `files_folders` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
