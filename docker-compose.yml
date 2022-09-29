@@ -2,17 +2,17 @@ version: '3.8'
 
 services:
   mysqldb:
-    image: mysql:5.7
-    restart: unless-stopped
-    env_file: .env
+    build:
+      context: ./db
     environment:
-      - MYSQL_ROOT_PASSWORD=$DB_PASSWORD
-      - MYSQL_DATABASE=$DB_NAME
+        - MYSQL_DATABASE=$DB_NAME
+        - MYSQL_USER=$DB_USER
+        - MYSQL_PASSWORD=$DB_PASSWORD
+        - MYSQL_ROOT_PASSWORD=$DB_PASSWORD
+    volumes:
+        - ./db/:/docker-entrypoint-initdb.d
     ports:
       - 3307:3306
-    volumes:
-      - db:/var/lib/mysql
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
   app:
     depends_on:
       - mysqldb
